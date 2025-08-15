@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+.container {
+  @apply mx-auto max-w-lg sm:max-w-[40rem] md:max-w-3xl lg:max-w-5xl xl:max-w-7xl px-4;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
