@@ -277,7 +277,7 @@ async function run() {
                 res.status(500).json({ error: 'Failed to add product' });
             }
         });
- 
+
 
         app.put('/products/:id', verifyToken, async (req, res) => {
             try {
@@ -319,7 +319,7 @@ async function run() {
         });
 
 
-        app.post('/cart', verifyToken, async (req, res) => {
+        app.post('/cart', async (req, res) => {
             const { userId, productId, quantity = 1 } = req.body;
 
             if (!userId || !productId) {
@@ -351,7 +351,7 @@ async function run() {
 
 
         app.delete('/cart/:userId/clear', verifyToken, async (req, res) => {
-            const  userId  = req.params.userId;
+            const userId = req.params.userId;
             const result = await cartCollection.deleteMany({ userId });
             res.send(result);
         });
@@ -435,6 +435,36 @@ async function run() {
             const result = await orderCollection.updateOne({ _id: new ObjectId(orderId) }, { $set: { status } });
             res.send(result);
         });
+
+        app.get('/order-by-date', async (req, res) => {
+            const result = await orderCollection.aggregate([
+                {
+                    $group: {
+                        _id: {
+                            $dateToString: {
+                                format: "%Y-%m-%d",
+                                date: { $toDate: "$date" }   // ISO string -> Date
+                            }
+                        },
+                        totalOrder: { $sum: 1 }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        date: '$_id',
+                        totalOrder: '$totalOrder'
+                    },
+                },
+                {
+                    $sort: {
+                        date: -1
+                    }
+                }
+            ]).toArray();
+            res.send(result);
+            console.log(result)
+        })
 
 
         // all api for category
@@ -558,7 +588,7 @@ async function run() {
         });
 
         // sales report
-        app.get('/admin/sales-report',  async (_, res) => {
+        app.get('/admin/sales-report', async (_, res) => {
             try {
                 const report = await orderCollection.aggregate([
                     {
@@ -591,7 +621,7 @@ async function run() {
                             buyerEmail: '$email',
                             price: '$cartItems.product.price',
                             quantity: '$cartItems.quantity',
-                            total: { $multiply: [{$toDouble:'$cartItems.quantity'}, {$toDouble:'$cartItems.product.price'}] },
+                            total: { $multiply: [{ $toDouble: '$cartItems.quantity' }, { $toDouble: '$cartItems.product.price' }] },
                             date: 1
                         }
                     }
@@ -663,7 +693,7 @@ async function run() {
                 res.status(500).send({ error: 'Failed to load dashboard summary' });
             }
         });
- 
+
 
         // user summery
         app.get('/user/summary', verifyToken, verifyEmail, async (req, res) => {

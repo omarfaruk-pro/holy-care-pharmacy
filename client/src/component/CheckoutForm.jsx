@@ -58,7 +58,8 @@ export default function CheckoutForm({ clientSecret, amount, user, userId, cartI
                         amount: amount / 100,
                         paymentIntentId: paymentIntent.id,
                         status: 'pending',
-                        date: new Date().toISOString(),
+                        // date: new Date().toISOString(),
+                        date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString(),
                         cartItems
                     });
                     clearCart();

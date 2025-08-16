@@ -7,6 +7,7 @@ import HealthTips from "./HealthTips";
 import TopRatedMedicines from "./TopRatedMedicines";
 import FeatureSection from "./FeatureSection";
 import Offer from "./Offer";
+import ProductSec from "./ProductSec";
 
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <FeatureSection></FeatureSection>
       <HealthTips></HealthTips>
       <Offer></Offer>
+      <ProductSec></ProductSec>
       <TopRatedMedicines></TopRatedMedicines>
     </>
   )

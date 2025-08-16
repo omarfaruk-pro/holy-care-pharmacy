@@ -79,7 +79,7 @@ export default function ManageUsers() {
                 <th className="px-6 py-3">Name</th>
                 <th className="px-6 py-3">Email</th>
                 <th className="px-6 py-3">Current Role</th>
-                <th className="px-6 py-3">Change Role</th>
+                <th className="px-6 py-3 text-right">Change Role</th>
               </tr>
             </thead>
             <tbody>
@@ -96,7 +96,7 @@ export default function ManageUsers() {
                   <td className="px-6 py-4 font-medium">{user.name}</td>
                   <td className="px-6 py-4">{user.email}</td>
                   <td className="px-6 py-4 capitalize">{user.role}</td>
-                  <td className="px-6 py-4 space-x-2">
+                  <td className="px-6 py-4 space-x-2 text-right">
                     <button
                       onClick={() => handleChangeRole(user._id, 'user')}
                       className="text-blue-600 hover:text-blue-800"
