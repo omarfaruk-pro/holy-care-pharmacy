@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { uploadImageToImgbb } from '../../../utils/Photoupload';
 import Spiner from '../../../component/loader/Spiner';
 import { HiOutlineRefresh } from 'react-icons/hi';
+import Button from '../../../component/buttons/Button';
 
 
 export default function ManageCategory() {
@@ -157,18 +158,17 @@ export default function ManageCategory() {
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <div className="flex justify-end gap-2">
-                                            <button
+                                            <Button
                                                 onClick={() => handleEdit(cat)}
-                                                className="btn btn-sm btn-warning"
                                             >
                                                 Edit
-                                            </button>
-                                            <button
+                                            </Button>
+                                            <Button
                                                 onClick={() => handleDelete(cat._id)}
-                                                className="btn btn-sm btn-error"
+                                                className=" btn-sm bg-red-400 !text-white"
                                             >
                                                 Delete
-                                            </button>
+                                            </Button>
                                         </div>
                                     </td>
                                 </tr>

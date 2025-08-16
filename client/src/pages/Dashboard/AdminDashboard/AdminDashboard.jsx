@@ -4,7 +4,8 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { Link } from 'react-router';
 import { FaMoneyBillWave, FaHourglassHalf, FaShoppingBag, FaClock, FaBox, FaThList, FaImage, FaUsers, FaStore, FaUserShield } from "react-icons/fa";
 import CardSkeleton from '../../../component/loader/CardSkeleton';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
+import Spiner from '../../../component/loader/Spiner';
 
 
 export default function AdminDashboard() {
@@ -135,11 +136,12 @@ export default function AdminDashboard() {
                         </div>
                     </div>
                 }
+                <h2 className="text-2xl font-semibold mt-10 mb-5 text-center">Last 7 Days Order</h2>
                 {
                     orderByDataLoading ? (
-                        <div>loading.....</div>
+                        <Spiner></Spiner>
                     ) : (
-                        <div className='h-100 mt-10'>
+                        <div className='h-100'>
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart
                                     data={orderByDate}
@@ -153,8 +155,7 @@ export default function AdminDashboard() {
                                     <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis dataKey="date" />
                                     <YAxis />
-                                    <Tooltip />
-                                    <Legend />
+                                    <Tooltip/>
                                     <Line type="monotone" dataKey="totalOrder" stroke="#8884d8" activeDot={{ r: 10 }} />
                                 </LineChart>
                             </ResponsiveContainer>

@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useState } from 'react';
 import SkeletonTableLoader from '../../../component/loader/SkeletonTableLoader';
+import Button from '../../../component/buttons/Button';
 
 export default function ManageUsers() {
   const axiosSecure = useAxiosSecure();
@@ -97,21 +98,18 @@ export default function ManageUsers() {
                   <td className="px-6 py-4">{user.email}</td>
                   <td className="px-6 py-4 capitalize">{user.role}</td>
                   <td className="px-6 py-4 space-x-2 text-right">
-                    <button
+                    <Button
                       onClick={() => handleChangeRole(user._id, 'user')}
-                      className="text-blue-600 hover:text-blue-800"
-                      title="Make User"
+                      className="bg-green-600 hover:bg-green-700"
                     >
-                      <FaUser />
-                    </button>
+                      User
+                    </Button>
                   
-                    <button
+                    <Button
                       onClick={() => handleChangeRole(user._id, 'admin')}
-                      className="text-purple-600 hover:text-purple-800"
-                      title="Make Admin"
                     >
-                      <FaUserShield />
-                    </button>
+                      Admin
+                    </Button>
                   </td>
                 </tr>
               ))}

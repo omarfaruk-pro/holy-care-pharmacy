@@ -1,4 +1,4 @@
-// components/CheckoutForm.jsx
+
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import useAxiosSecure from '../hooks/useAxiosSecure';

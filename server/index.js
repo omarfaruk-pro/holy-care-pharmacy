@@ -319,7 +319,7 @@ async function run() {
         });
 
 
-        app.post('/cart', async (req, res) => {
+        app.post('/cart', verifyToken, async (req, res) => {
             const { userId, productId, quantity = 1 } = req.body;
 
             if (!userId || !productId) {
@@ -436,7 +436,7 @@ async function run() {
             res.send(result);
         });
 
-        app.get('/order-by-date', async (req, res) => {
+        app.get('/order-by-date', verifyToken, async (req, res) => {
             const result = await orderCollection.aggregate([
                 {
                     $group: {
@@ -559,33 +559,59 @@ async function run() {
         app.get('/payment-history', verifyToken, async (req, res) => {
             const userEmail = req.query.email;
             const role = req.query.role;
-            let query = {};
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const skip = (page - 1) * limit;
+            console.log(page, limit, skip)
 
             if (role === 'user') {
-                query = { email: userEmail };
+                try {
+                    const history = await orderCollection
+                        .find({ email: userEmail })
+                        .project({
+                            _id: 1,
+                            date: 1,
+                            paymentIntentId: 1,
+                            status: 1,
+                            amount: 1,
+                        })
+                        .sort({ date: -1 })
+                        .toArray();
+                    res.send(history);
+                } catch (error) {
+                    console.error(error);
+                    res.status(500).send({ error: 'Failed to fetch payment history' });
+                }
             } else if (role === 'admin') {
-                query = {};
+                try {
+                    const history = await orderCollection
+                        .find()
+                        .project({
+                            _id: 1,
+                            date: 1,
+                            paymentIntentId: 1,
+                            status: 1,
+                            amount: 1,
+                        })
+                        .skip(skip)
+                        .limit(limit)
+                        .sort({ date: -1 })
+                        .toArray();
+
+                    res.send(history);
+                } catch (error) {
+                    console.error(error);
+                    res.status(500).send({ error: 'Failed to fetch payment history' });
+                }
             }
 
-            try {
-                const history = await orderCollection
-                    .find(query)
-                    .project({
-                        _id: 1,
-                        date: 1,
-                        paymentIntentId: 1,
-                        status: 1,
-                        amount: 1,
-                    })
-                    .sort({ date: -1 }) // most recent first
-                    .toArray();
 
-                res.send(history);
-            } catch (error) {
-                console.error(error);
-                res.status(500).send({ error: 'Failed to fetch payment history' });
-            }
         });
+
+        app.get("/payment-count", verifyToken, async (req, res) => {
+            const result = await orderCollection.estimatedDocumentCount();
+            res.send(result);
+        })
 
         // sales report
         app.get('/admin/sales-report', async (_, res) => {
