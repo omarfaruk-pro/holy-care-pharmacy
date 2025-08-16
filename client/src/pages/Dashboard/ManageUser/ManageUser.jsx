@@ -7,13 +7,12 @@ import SkeletonTableLoader from '../../../component/loader/SkeletonTableLoader';
 
 export default function ManageUsers() {
   const axiosSecure = useAxiosSecure();
-  const [sortRole, setSortRole] = useState('all'); // 'all', 'user', 'seller', 'admin'
-
-  // Fetch users filtered by role
+  const [sortRole, setSortRole] = useState('all'); 
+ 
   const { data: users = [], isLoading, refetch } = useQuery({
     queryKey: ['users', sortRole],
     queryFn: async () => {
-      // If all, call /users, else /users?role=roleName
+ 
       const url = sortRole === 'all' ? '/users' : `/users?role=${sortRole}`;
       const res = await axiosSecure.get(url);
       return res.data;
@@ -105,13 +104,7 @@ export default function ManageUsers() {
                     >
                       <FaUser />
                     </button>
-                    <button
-                      onClick={() => handleChangeRole(user._id, 'seller')}
-                      className="text-green-600 hover:text-green-800"
-                      title="Make Seller"
-                    >
-                      <FaUserTie />
-                    </button>
+                  
                     <button
                       onClick={() => handleChangeRole(user._id, 'admin')}
                       className="text-purple-600 hover:text-purple-800"

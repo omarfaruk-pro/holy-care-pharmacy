@@ -22,7 +22,6 @@ import ManagePayment from "../pages/Dashboard/ManagePayment/ManagePayment";
 import SalesReport from "../pages/Dashboard/SalesReport/SalesReport";
 import PrivateRoute from "../Private/PrivateRoute";
 import AdminRoute from "../Private/AdminRoute";
-import SellerRoute from "../Private/SellerRoute";
 import UserRoute from "../Private/UserRoute";
 import Error from "../pages/Error/Error";
 import MyMedicines from "../pages/Dashboard/MyMedicines/MyMedicines";
@@ -93,16 +92,16 @@ const router = createBrowserRouter([
             },
             {
                 path: 'add-product',
-                element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
+                element: <AdminRoute><AddProduct></AddProduct></AdminRoute>
             },
 
             {
                 path: 'add-promotion',
-                element: <SellerRoute><AddPromotion></AddPromotion></SellerRoute>
+                element: <AdminRoute><AddPromotion></AddPromotion></AdminRoute>
             },
             {
                 path: 'my-medicines',
-                element: <SellerRoute><MyMedicines></MyMedicines></SellerRoute>
+                element: <AdminRoute><MyMedicines></MyMedicines></AdminRoute>
             },
             {
                 path: 'my-orders',

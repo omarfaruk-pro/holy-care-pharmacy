@@ -5,6 +5,8 @@ import DiscountProducts from "./DiscountProducts";
 import FeaturedProduct from "./FeatureProduct";
 import HealthTips from "./HealthTips";
 import TopRatedMedicines from "./TopRatedMedicines";
+import FeatureSection from "./FeatureSection";
+import Offer from "./Offer";
 
 
 export default function Home() {
@@ -15,7 +17,9 @@ export default function Home() {
       <CategorySection></CategorySection>
       <DiscountProducts></DiscountProducts>
       <FeaturedProduct></FeaturedProduct>
+      <FeatureSection></FeatureSection>
       <HealthTips></HealthTips>
+      <Offer></Offer>
       <TopRatedMedicines></TopRatedMedicines>
     </>
   )

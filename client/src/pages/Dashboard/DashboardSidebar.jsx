@@ -24,7 +24,7 @@ export default function DashboardSidebar() {
      ${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-100'}`;
 
   return (
-    <aside className="w-full p-4">
+    <aside className="w-full p-4 sticky top-25">
 
       <nav className="space-y-1">
         {/* Shared or role-independent links */}
@@ -46,22 +46,13 @@ export default function DashboardSidebar() {
                 <FaMoneyCheckAlt /> Manage Payment
               </NavLink>
               <NavLink to="/dashboard/manage-banners" className={linkClass}>
-                <FaClipboardList /> Manage Banners
+                <FaClipboardList /> Manage Banners & Offer
               </NavLink>
               <NavLink to="/dashboard/sales-report" className={linkClass}>
                 <FaFileInvoiceDollar /> Sales Report
               </NavLink>
-            </>
-          )
-        }
-
-
-        {/* Seller Links */}
-        {
-          userRole === 'seller' && (
-            <>
               <NavLink to="/dashboard/my-medicines" className={linkClass}>
-                <FaBoxOpen /> My Medicines
+                <FaBoxOpen /> All Medicines
               </NavLink>
               <NavLink to="/dashboard/add-product" className={linkClass}>
                 <FaRocket />

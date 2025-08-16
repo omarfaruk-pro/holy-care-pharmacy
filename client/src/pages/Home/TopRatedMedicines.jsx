@@ -36,10 +36,10 @@ export default function TopRatedMedicines() {
     if (remainder > 0) {
       const fillPercent = Math.round(remainder * 100);
       stars.push(
-        <div key="partial" className="relative w-[24px] h-[24px]">
+        <div key="partial" className="relative w-5 h-5">
           <AiOutlineStar className="absolute text-yellow-300 text-xl" />
           <div
-            className="absolute top-0 left-0 h-full overflow-hidden"
+            className="absolute top-0 left-0 h-full w-5 overflow-hidden"
             style={{ width: `${fillPercent}%` }}
           >
             <AiFillStar className="text-yellow-500 text-xl" />

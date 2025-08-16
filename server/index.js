@@ -99,7 +99,7 @@ async function run() {
         }
 
 
-        app.get('/users', verifyToken, async (req, res) => {
+        app.get('/users', async (req, res) => {
             try {
                 const email = req.query.email;
                 const { role } = req.query;
@@ -189,9 +189,7 @@ async function run() {
             const id = req.params.id;
             const { role } = req.body;
 
-            console.log(id, role);
-
-            if (!['user', 'seller', 'admin'].includes(role)) {
+            if (!['user', 'admin'].includes(role)) {
                 return res.status(400).json({ error: 'Invalid role' });
             }
 
@@ -279,17 +277,7 @@ async function run() {
                 res.status(500).json({ error: 'Failed to add product' });
             }
         });
-
-        app.get('/products/:id', verifyToken, async (req, res) => {
-            try {
-                const id = req.params.id;
-                const query = { sellerId: id };
-                const product = await productsCollection.find(query).toArray();
-                res.send(product);
-            } catch (error) {
-                res.status(500).json({ error: 'Failed to get product' });
-            }
-        });
+ 
 
         app.put('/products/:id', verifyToken, async (req, res) => {
             try {
@@ -675,82 +663,7 @@ async function run() {
                 res.status(500).send({ error: 'Failed to load dashboard summary' });
             }
         });
-
-
-        // seller summery
-        app.get('/seller/summery', async (req, res) => {
-            try {
-                const sellerId = req.query.sellerId;
-
-                if (!sellerId) {
-                    return res.status(400).json({ error: 'sellerId is required in query' });
-                }
-
-                const result = await orderCollection.aggregate([
-                    {
-                        $unwind: "$cartItems"
-                    },
-                    {
-                        $match: {
-                            "cartItems.product.sellerId": sellerId
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "$_id",
-                            orderStatus: { $first: "$status" },
-                            totalQuantity: { $sum: "$cartItems.quantity" },
-                            totalOrderRevenue: {
-                                $sum: {
-                                    $multiply: [
-                                        {$toDouble: "$cartItems.quantity"},
-                                        {$toDouble: "$cartItems.product.price"}
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: null,
-                            totalOrders: { $sum: 1 },
-                            totalProductsSold: { $sum: "$totalQuantity" },
-                            paidRevenue: {
-                                $sum: {
-                                    $cond: [{ $eq: ["$orderStatus", "paid"] }, "$totalOrderRevenue", 0]
-                                }
-                            },
-                            pendingRevenue: {
-                                $sum: {
-                                    $cond: [{ $eq: ["$orderStatus", "pending"] }, "$totalOrderRevenue", 0]
-                                }
-                            }
-                        }
-                    },
-                    {
-                        $project: {
-                            _id: 0,
-                            totalOrders: 1,
-                            totalProductsSold: 1,
-                            paidRevenue: 1,
-                            pendingRevenue: 1
-                        }
-                    }
-                ]).toArray();
-
-                res.send(result[0] || {
-                    totalOrders: 0,
-                    totalProductsSold: 0,
-                    paidRevenue: 0,
-                    pendingRevenue: 0
-                });
-
-            } catch (error) {
-                console.error("Error in /seller/summery:", error);
-                res.status(500).json({ error: "Internal server error" });
-            }
-        });
-
+ 
 
         // user summery
         app.get('/user/summary', verifyToken, verifyEmail, async (req, res) => {
@@ -811,8 +724,6 @@ async function run() {
                 res.status(500).send({ message: 'Failed to fetch user summary' });
             }
         });
-
-
 
 
 

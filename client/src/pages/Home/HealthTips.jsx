@@ -1,4 +1,7 @@
 import { Link } from "react-router";
+import { MdCalendarMonth } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
+import Button from "../../component/buttons/Button";
 
 export default function HealthTips() {
     const tips = [
@@ -22,23 +25,27 @@ export default function HealthTips() {
     return (
         <section className="bg-gray-100 py-16">
             <div className="container ">
-                <div className="flex justify-between">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-10">Health Tips & Articles</h2>
-                    <Link to="/health-tips" className="btn btn-primary">View All</Link>
+                <div className="flex justify-between mb-10">
+                    <h2 className="text-3xl md:text-4xl font-bold ">Health Tips & Articles</h2>
+                    <Link to={"/health-tips"}>
+                        <Button className={`px-10`}>View All</Button>
+                    </Link>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                     {tips.map((tip, index) => (
                         <div
                             key={index}
-                            className="rounded-lg shadow-md overflow-hidden bg-white group"
+                            className="rounded-lg shadow-md overflow-hidden bg-white group h-full"
                         >
                             <div className="overflow-hidden">
                                 <img src={tip.img} alt={tip.title} className="w-full h-60 object-cover group-hover:scale-110 duration-300 ease-linear" />
                             </div>
-                            <div className="p-4 text-left">
-                                <p>Published on <span className="font-semibold">May 1, 2023</span></p>
-                                <p className="text-sm text-gray-600">By <span className="font-semibold">Dr. John Doe</span></p>
-                                <h3 className="text-xl font-semibold mt-1 mb-2 hover:text-primary duration-300 ease-linear"><Link>{tip.title}</Link></h3>
+                            <div className="p-7 text-left">
+                                <div className="flex gap-2 items-center  justify-between">
+                                    <p className="flex gap-2 items-center "><MdCalendarMonth className="-mt-0.5" /> <span className="font-semibold">May 1, 2023</span></p>
+                                    <p className="flex gap-2"><FaUser /> <span className="font-semibold">Dr. John Doe</span></p>
+                                </div>
+                                <h3 className="text-xl font-semibold mt-3 mb-1 hover:text-primary duration-300 ease-linear"><Link>{tip.title}</Link></h3>
                                 <p className="text-sm text-gray-600">{tip.desc}</p>
                             </div>
                         </div>

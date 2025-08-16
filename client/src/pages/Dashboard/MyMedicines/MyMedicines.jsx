@@ -19,7 +19,7 @@ export default function MyMedicines() {
         queryKey: ['myMedicines', userId],
         enabled: !!userId,
         queryFn: async () => {
-            const res = await axiosSecure.get(`/products/${userId}`);
+            const res = await axiosSecure.get(`/products/`);
             return res.data;
         }
     });
