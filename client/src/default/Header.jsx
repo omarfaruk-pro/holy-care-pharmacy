@@ -32,6 +32,8 @@ const Header = () => {
                         <ul className="menu lg:menu-horizontal px-1 font-medium">
                             <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none" : ""} to="/">Home</NavLink></li>
                             <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none" : ""} to="/shop">Shop</NavLink></li>
+                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none" : ""} to="/about-us">About Us</NavLink></li>
+                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none" : ""} to="/contact-us">Contact Us</NavLink></li>
                         </ul>
                         <div className='lg:hidden'>
                             <LanguageDropdown />

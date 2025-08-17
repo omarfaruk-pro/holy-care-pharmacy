@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import ProductCard from "../../component/ProductCard";
 
 
 
@@ -36,41 +37,9 @@ export default function ProductSec() {
                     </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     {products.map((product) => (
-                        <div
-                            key={product.id}
-                            className="relative bg-white border rounded-2xl p-4 shadow hover:shadow-lg transition"
-                        >
-
-                          
-                                <span className="absolute top-3 right-3 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
-                                    {product.category}
-                                </span>
-                            
-
-                            {/* Image */}
-                            <img
-                                src={product.productImageURL}
-                                alt={product.name}
-                                className="w-full h-40 object-contain mb-4"
-                            />
-
-                            {/* Rating */}
-                            <RatingStars rating={product.rating} />
-
-                            {/* Title */}
-                            <h3 className="font-semibold text-gray-800 mb-2">
-                                {product.name}
-                            </h3>
-
-                            {/* Price */}
-                            <div className="flex items-center gap-2">
-                                <span className="text-green-600 font-bold text-lg">
-                                    ${product.price}
-                                </span>
-                            </div>
-                        </div>
+                        <ProductCard key={product._id} product={product}></ProductCard>
                     ))}
                 </div>
             </div>

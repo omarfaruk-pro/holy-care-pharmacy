@@ -1,84 +1,93 @@
-// HeroSection.jsx
 import { useState, useEffect } from 'react';
 import Button from '../../component/buttons/Button';
+import offerImg from "../../assets/images/offer-img.jpg";
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 export default function Offer() {
+    const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    const axiosSecure = useAxiosSecure();
+
+    const { data: offerInfo, isLoading, error } = useQuery({
+        queryKey: ['offer', "68a1d57cd12cb04bc1a1ff68"],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/offer-info/68a1d57cd12cb04bc1a1ff68`);
+            return res.data; // axios এ সবসময় data property থাকে
+        },
+        retry: false,
+        refetchOnWindowFocus: false,
+    });
+
     const calculateTimeLeft = () => {
-        const targetDate = new Date(localStorage.getItem('targetDate'));
+        if (!offerInfo?.time) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+        const targetDate = new Date(offerInfo.time);
         const now = new Date();
         const difference = targetDate - now;
-        let timeLeft = {};
 
         if (difference > 0) {
-            timeLeft = {
+            return {
                 days: Math.floor(difference / (1000 * 60 * 60 * 24)),
                 hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
                 minutes: Math.floor((difference / 1000 / 60) % 60),
-                seconds: Math.floor((difference / 1000) % 60)
+                seconds: Math.floor((difference / 1000) % 60),
             };
-        } else {
-            timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
         }
-
-        return timeLeft;
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     };
 
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-
     useEffect(() => {
+        if (!offerInfo?.time) return;
+
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [offerInfo]);
+
+    if (isLoading) return <p className="text-center text-gray-500">Loading offer...</p>;
+    if (error) return <p className="text-center text-red-500">Error: {error.message}</p>;
 
     return (
-        <>
-            <section className='py-20'>
-                <div className="container">
-                    <div className="flex flex-col-reverse md:flex-row items-center justify-between">
-                        <div className="w-full md:w-1/2 flex justify-center md:justify-start">
-                            <img src="/images/hero.png" alt="Promo" className="max-w-xs" />
+        <section className="py-20">
+            <div className="container">
+                <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
+
+                    {/* Left Image */}
+                    <div className="w-full md:w-1/2 flex justify-center md:justify-start">
+                        <img src={offerImg} alt="Promo" className="w-full rounded-xl" />
+                    </div>
+
+                    {/* Right Content */}
+                    <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
+                        <p className="text-green-600 text-base font-semibold">Todays Hot Offer</p>
+                        <h2 className="text-2xl md:text-4xl font-bold">
+                            Buy all your medicines at {offerInfo?.percentage || 0}% off
+                        </h2>
+                        <p className="text-gray-600 text-base">Get extra cashback with great deals and discounts</p>
+
+                        {/* Countdown */}
+                        <div className="flex justify-center md:justify-start space-x-2 text-green-700 font-bold">
+                            {['days', 'hours', 'minutes', 'seconds'].map((unit, idx) => (
+                                <div key={idx} className="text-center">
+                                    <div className="bg-white p-2 rounded shadow w-12">
+                                        {String(timeLeft[unit]).padStart(2, '0')}
+                                    </div>
+                                    <span className="text-xs">
+                                        {unit.charAt(0).toUpperCase() + unit.slice(1)}
+                                    </span>
+                                </div>
+                            ))}
                         </div>
 
-                        <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
-                            <p className="text-green-600 text-base font-semibold">Todays Hot Offer</p>
-                            <h2 className="text-2xl md:text-4xl font-bold">
-                                Buy all your medicines at {localStorage.getItem('discountPercentage')}% offer
-                            </h2>
-                            <p className="text-gray-600 text-base">Get extra cashback with great deals and discounts</p>
-
-                            <div className="flex justify-center md:justify-start space-x-2 text-green-700 font-bold">
-                                <div>
-                                    <div className="bg-white p-2 rounded shadow w-12">{String(timeLeft.days).padStart(2, '0')}</div>
-                                    <span>Days</span>
-                                </div>
-                                <div>
-                                    <div className="bg-white p-2 rounded shadow w-12">{String(timeLeft.hours).padStart(2, '0')}</div>
-                                    <span>Hrs</span>
-                                </div>
-                                <div>
-                                    <div className="bg-white p-2 rounded shadow w-12">{String(timeLeft.minutes).padStart(2, '0')}</div>
-                                    <span>Mins</span>
-                                </div>
-                                <div>
-                                    <div className="bg-white p-2 rounded shadow w-12">{String(timeLeft.seconds).padStart(2, '0')}</div>
-                                    <span>Secs</span>
-                                </div>
-                            </div>
-
-                            {/* CTA */}
-                            <div className="flex justify-center md:justify-start space-x-4 mt-4">
-                                <Button>Shop Now</Button>
-                                <a href="#" className="text-green-600 underline">Deal of The Day</a>
-                            </div>
+                        {/* CTA */}
+                        <div className="flex justify-center md:justify-start space-x-4 mt-4">
+                            <Button>Shop Now</Button>
                         </div>
                     </div>
                 </div>
-            </section>
-        </>
+            </div>
+        </section>
     );
-};
-
+}

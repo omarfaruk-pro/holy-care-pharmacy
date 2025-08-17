@@ -7,8 +7,7 @@ export default function useAxiosSecure() {
     const { user, userLogout } = useAuth();
 
     const axiosInstence = axios.create({
-        // baseURL: 'https://holy-care.vercel.app'
-        baseURL: 'http://localhost:4000'
+        baseURL: `${import.meta.env.VITE_base_url}`
     })
 
     useEffect(() => {

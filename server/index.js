@@ -87,6 +87,7 @@ async function run() {
         const cartCollection = client.db('holyCare').collection('cart');
         const orderCollection = client.db('holyCare').collection('orders');
         const categoriesCollection = client.db('holyCare').collection('categories');
+        const offerInfoCollection = client.db('holyCare').collection('offerInfo');
 
         const verifyAdmin = async (req, res, next) => {
             const email = req.decoded.email;
@@ -463,7 +464,6 @@ async function run() {
                 }
             ]).toArray();
             res.send(result);
-            console.log(result)
         })
 
 
@@ -562,7 +562,6 @@ async function run() {
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 10;
             const skip = (page - 1) * limit;
-            console.log(page, limit, skip)
 
             if (role === 'user') {
                 try {
@@ -780,6 +779,30 @@ async function run() {
                 res.status(500).send({ message: 'Failed to fetch user summary' });
             }
         });
+
+
+        // all offer info api here
+        app.get("/offer-info/:id", async (req, res) => {
+            try {
+                const result = await offerInfoCollection.findOne({ _id: new ObjectId(req.params.id) });
+                res.send(result);
+            } catch (error) {
+                console.error(error);
+                res.status(500).send({ message: "Failed to fetch offer info" });
+            }
+        })
+
+        app.put("/offer-info/:id", async (req, res) => {
+            try {
+                const offerInfo = req.body;
+                const id = req.params.id;
+                const result = await offerInfoCollection.updateOne({ _id: new ObjectId(id) }, { $set: offerInfo }, { upsert: true });
+                res.send(result);
+            } catch (error) {
+                console.error(error);
+                res.status(500).send({ message: "Failed to create offer info" });
+            }
+        })
 
 
 

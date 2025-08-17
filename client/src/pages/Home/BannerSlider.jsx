@@ -19,6 +19,7 @@ export default function BannerSlider() {
         }
     });
 
+
     if (isLoading) return <BannerLoader></BannerLoader>;
     if (isError) return <div>Error</div>;
 

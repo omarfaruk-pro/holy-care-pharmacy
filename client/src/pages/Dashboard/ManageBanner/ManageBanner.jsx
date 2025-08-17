@@ -17,6 +17,7 @@ export default function ManageBanner() {
       return res.data;
     }
   });
+  
 
   const handleStatusChange = async (id, status) => {
     setUpdatingId(id);
@@ -83,7 +84,8 @@ export default function ManageBanner() {
     })
       .then((result) => {
         if (result.isConfirmed) {
-          localStorage.setItem('targetDate', e.target.value);
+          axiosSecure.put("/offer-info/68a1d57cd12cb04bc1a1ff68", { time })
+          .then(()=>{})
         }
       });
   }
@@ -114,7 +116,8 @@ export default function ManageBanner() {
     })
       .then((result) => {
         if (result.isConfirmed) {
-          localStorage.setItem('discountPercentage', percentage);
+          axiosSecure.put("/offer-info/68a1d57cd12cb04bc1a1ff68", { percentage })
+          .then(()=>{})
           e.target.reset();
         }
       });

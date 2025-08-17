@@ -25,6 +25,8 @@ import AdminRoute from "../Private/AdminRoute";
 import UserRoute from "../Private/UserRoute";
 import Error from "../pages/Error/Error";
 import MyMedicines from "../pages/Dashboard/MyMedicines/MyMedicines";
+import About from "../pages/About/About";
+import Contact from "../pages/Contact/Contact";
 
 
 const router = createBrowserRouter([
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home
+            },
+            {
+                path: 'about-us',
+                Component: About
+            },
+            {
+                path: 'contact-us',
+                Component: Contact
             },
             {
                 path: 'shop',
