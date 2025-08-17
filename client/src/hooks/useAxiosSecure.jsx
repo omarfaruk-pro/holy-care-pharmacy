@@ -1,14 +1,15 @@
-import axios from "axios"
+// import axios from "axios"
 import useAuth from "./useAuth"
 import { useEffect } from "react";
+import axiosInstence from "./axiosSecure";
 
 
 export default function useAxiosSecure() {
     const { user, userLogout } = useAuth();
 
-    const axiosInstence = axios.create({
-        baseURL: `${import.meta.env.VITE_base_url}`
-    })
+    // const axiosInstence = axios.create({
+    //     baseURL: `${import.meta.env.VITE_base_url}`
+    // })
 
     useEffect(() => {
 
@@ -37,7 +38,7 @@ export default function useAxiosSecure() {
             axiosInstence.interceptors.request.eject(requestInterceptor);
             axiosInstence.interceptors.response.eject(responseInterceptor);
         };
-    }, [ axiosInstence, user, userLogout]);
+    }, [ user, userLogout]);
 
 
 

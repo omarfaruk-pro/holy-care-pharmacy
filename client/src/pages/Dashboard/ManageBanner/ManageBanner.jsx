@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
@@ -18,6 +18,19 @@ export default function ManageBanner() {
     }
   });
   
+  const {mutate:updateOffer} = useMutation({
+    mutationFn: async (data) => {
+      const res = await axiosSecure.put(`/offer-info/68a1d57cd12cb04bc1a1ff68`, data);
+      return res.data;
+    },
+    onSuccess: () => {
+      refetch();
+      Swal.fire('Updated!', 'Offer has been updated.', 'success');
+    },
+    onError:(error) => {
+      console.log(error)
+    }
+  })
 
   const handleStatusChange = async (id, status) => {
     setUpdatingId(id);
@@ -36,7 +49,7 @@ export default function ManageBanner() {
 
         if (!confirm.isConfirmed) {
           setUpdatingId(null);
-          return;  // User canceled delete
+          return; 
         }
 
         await axiosSecure.delete(`/banners/${id}`);
@@ -46,7 +59,6 @@ export default function ManageBanner() {
         Swal.fire('Updated!', `Status changed to ${status}`, 'success');
       }
 
-      // Refresh data after success
       refetch();
     } catch (error) {
       console.error("Error updating banner:", error);
@@ -84,8 +96,9 @@ export default function ManageBanner() {
     })
       .then((result) => {
         if (result.isConfirmed) {
-          axiosSecure.put("/offer-info/68a1d57cd12cb04bc1a1ff68", { time })
-          .then(()=>{})
+          updateOffer({ time });
+          // axiosSecure.put("/offer-info/68a1d57cd12cb04bc1a1ff68", { time })
+          // .then(()=>{})
         }
       });
   }
@@ -116,8 +129,9 @@ export default function ManageBanner() {
     })
       .then((result) => {
         if (result.isConfirmed) {
-          axiosSecure.put("/offer-info/68a1d57cd12cb04bc1a1ff68", { percentage })
-          .then(()=>{})
+          updateOffer({ percentage });
+          // axiosSecure.put("/offer-info/68a1d57cd12cb04bc1a1ff68", { percentage })
+          // .then(()=>{})
           e.target.reset();
         }
       });
@@ -133,7 +147,7 @@ export default function ManageBanner() {
           <div>
             <div className='flex justify-end items-center gap-4'>
               <p className='font-semibold'>Percentage of Offer</p>
-              <form onSubmit={handleOfferPercentage} className='flex items-center gap-1'>
+              <form onSubmit={handleOfferPercentage} className='flex  gap-1'>
                 <input name='offerPercentage' type="number" className={inputClass} placeholder='10'/>
                 <Button type="submit">Done</Button>
               </form>
@@ -154,7 +168,7 @@ export default function ManageBanner() {
               <tr>
                 <th>#</th>
                 <th>Product</th>
-                <th>Seller</th>
+                <th>Added by</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -170,7 +184,7 @@ export default function ManageBanner() {
                       <p className="text-xs text-gray-500">{banner.tags?.join(', ')}</p>
                     </div>
                   </td>
-                  <td>{banner.sellerEmail || 'N/A'}</td>
+                  <td>{banner.addAdminEmail || 'N/A'}</td>
                   <td>
                     <span
                       className={`px-2 py-1 text-xs font-medium rounded-full ${banner.status === 'active' ? 'bg-green-200 text-green-700' :

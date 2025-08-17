@@ -4,6 +4,7 @@ import offerImg from "../../assets/images/offer-img.jpg";
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { HiArrowRight } from 'react-icons/hi';
+import { Link } from 'react-router';
 
 export default function Offer() {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -66,7 +67,7 @@ export default function Offer() {
                         </h2>
                         <p className="text-[#777] text-base">Get extra cashback with great deals and discounts</p>
 
-                       
+
                         <div className="flex justify-center md:justify-start gap-6 font-bold mt-10">
                             {['days', 'hours', 'minutes', 'seconds'].map((unit, idx) => (
                                 <div key={idx} className="text-center">
@@ -82,7 +83,9 @@ export default function Offer() {
 
                         {/* CTA */}
                         <div className="flex justify-center md:justify-start space-x-4 mt-10">
-                            <Button className="flex items-center gap-3">Shop Now <HiArrowRight /></Button>
+                            <Link to="/shop">
+                                <Button className="flex items-center gap-3">Shop Now <HiArrowRight /></Button>
+                            </Link>
                         </div>
                     </div>
                 </div>

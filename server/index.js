@@ -241,7 +241,6 @@ async function run() {
 
         app.delete('/banners/:id', verifyToken, verifyAdmin, async (req, res) => {
             const id = req.params.id;
-
             const result = await bannerCollection.deleteOne({ _id: new ObjectId(id) });
 
             res.send(result);
@@ -268,6 +267,17 @@ async function run() {
                 res.status(500).json({ error: 'Internal server error' });
             }
         });
+
+        app.get('/products/:id', async (req, res) => {
+            try {
+                const id = req.params.id;
+                const query = { _id: new ObjectId(id) };
+                const product = await productsCollection.findOne(query);
+                res.send(product);
+            } catch (err) {
+                res.status(500).json({ error: 'Internal server error' });
+            }
+        })
 
         app.post('/products', verifyToken, async (req, res) => {
             try {

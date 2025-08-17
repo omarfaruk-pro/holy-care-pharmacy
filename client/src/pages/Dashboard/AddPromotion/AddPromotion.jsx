@@ -38,16 +38,16 @@ export default function AddPromotion() {
         try {
             setLoading(true);
 
-            const bgImageURL = await uploadImageToImgbb(data.bgImage[0]);
             const productImageURL = await uploadImageToImgbb(data.productImage[0]);
 
             const promotionData = {
-                bgImage: bgImageURL,
                 productImage: productImageURL,
                 name: data.name,
-                features: data.features.split(",").map(f => f.trim()),
+                uses: data.uses,
+                subtitle: data.subtitle,
+                productId: data.productId,
                 status: "inactive",
-                sellerEmail: user?.email,
+                addAdminEmail: user?.email,
                 date: new Date().toISOString(),
             };
             
@@ -63,32 +63,40 @@ export default function AddPromotion() {
     };
 
     return (
-        <section className="container py-10">
+        <section className="container py-6">
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-2 text-gray-800 ">
                 <FaPlusCircle className="text-blue-600" />
                 Submit a Promotional Banner
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="grid md:grid-cols-2 gap-6 bg-gray-900 dark:bg-white p-6 rounded shadow">
-                <div className="col-span-2 md:col-span-1">
-                    <label className={labelClass}>Background Image</label>
-                    <input type="file" accept="image/*" {...register("bgImage", { required: true })} className={inputClass} />
-                </div>
+                
 
                 <div className="col-span-2 md:col-span-1">
                     <label className={labelClass}>Product Image</label>
                     <input type="file" accept="image/*" {...register("productImage", { required: true })} className={inputClass} />
                 </div>
 
-                <div className="col-span-2">
+                <div className="col-span-1">
+                    <label className={labelClass}>Product Name</label>
+                    <input type="text" {...register("productId", { required: true })} placeholder="Product ID" className={inputClass} />
+                </div>
+
+                <div className="col-span-1">
                     <label className={labelClass}>Product Name</label>
                     <input type="text" {...register("name", { required: true })} placeholder="e.g., ImmunoBoost+ Capsules" className={inputClass} />
                 </div>
 
-                <div className="col-span-2">
-                    <label className={labelClass}>Feature List (comma separated)</label>
-                    <textarea {...register("features", { required: true })} placeholder="e.g., Boosts immunity, Clinically tested, Safe for all ages" rows={4} className={inputClass} />
+                <div className="col-span-1">
+                    <label className={labelClass}>Short Usage</label>
+                    <input type="text" {...register("uses", { required: true })} placeholder="Intestinal ulcers" className={inputClass} />
                 </div>
+
+                <div className="col-span-2">
+                    <label className={labelClass}>Short Description</label>
+                    <textarea rows="5" {...register("subtitle", { required: true })} placeholder="Intestinal ulcers" className={`${inputClass} resize-none`} ></textarea>
+                </div>
+
 
 
                 <div className="col-span-2">

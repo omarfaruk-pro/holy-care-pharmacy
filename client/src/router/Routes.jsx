@@ -27,6 +27,7 @@ import Error from "../pages/Error/Error";
 import MyMedicines from "../pages/Dashboard/MyMedicines/MyMedicines";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
+import ProductDetails from "../pages/product-details/ProductDetails";
 
 
 const router = createBrowserRouter([
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             {
                 path: 'shop',
                 Component: Shop
+            },
+            {
+                path: 'product/:id',
+                Component: ProductDetails
             },
             {
                 path: 'category/:name',

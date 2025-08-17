@@ -13,56 +13,23 @@ import {HiArrowRight} from "react-icons/hi"
 
 export default function BannerSlider() {
     const axiosSecure = useAxiosSecure();
-    const { data: banner = [], isLoading, isError } = useQuery({
+    const { data: banners = [], isLoading, isError } = useQuery({
         queryKey: ['banners'],
         queryFn: async () => {
             const res = await axiosSecure(`/banners?active=${true}`);
             return res.data;
         }
     });
-    console.log(banner);
 
     if (isLoading) return <BannerLoader></BannerLoader>;
     if (isError) return <div>Error</div>;
 
-    const banners = [
-        {
-            "_id": "686eb370507f6d0c53f5111f",
-            "productImage": "https://i.ibb.co.com/Gf8gnsCJ/ucrfate.png",
-            "name": "Ucrafate syrup",
-            "uses": "Intestinal ulcers",
-            "subtitle": "Ucrafate is a prescription medicine used in the treatment of ulcers in the stomach and intestine. It forms a coating over ulcers and creates a physical barrier thereby promotes healing of ulcer.",
-            "status": "active",
-            "sellerEmail": "aadmin@gmail.com",
-            "date": "2025-07-09T18:22:40.820Z"
-        },
-        {
-            "_id": "686d61220e197804f2224d4d",
-            "productImage": "https://cdn2.arogga.com/eyJidWNrZXQiOiJhcm9nZ2EiLCJrZXkiOiJQcm9kdWN0LXBfaW1hZ2VzXC8xMTMyXC8xMTMyLUFuZWZlci1JVi1jb3B5LXMyZmFvYy5qcGVnIiwiZWRpdHMiOltdfQ==",
-            "name": "Anefer IV Injection",
-            "uses": "Iron deficiency anemia",
-            "subtitle": "Anefer is an iron replacement product. It is used to treat a type of anemia where you have too few red blood cells because you have too little iron in your body (iron-deficiency anaemia).",
-            "status": "active",
-            "sellerEmail": "seller@holycare.com",
-            "createdAt": "2025-07-08"
-        },
-        {
-            "_id": "686d61220e197804f2224d4c",
-            "productImage": "https://cdn2.arogga.com/eyJidWNrZXQiOiJhcm9nZ2EiLCJrZXkiOiJQcm9kdWN0LXBfaW1hZ2VzXC8yNzIwNFwvMjcyMDQtc21jLW9yc2FsaW5lLTBvZHExOS5qcGVnIiwiZWRpdHMiOltdfQ==",
-            "name": "Orsaline (SMC)",
-            "uses": "Diarrhea, Dehydration, Electrolytes imbalance",
-            "subtitle": "Depressed renal function, severe continuing diarrhoea or other critical fluid losses may need supplementation with parenteral fluids along with oral saline. Reconstitue saline should be used within 6 hours",
-            "status": "inactive",
-            "sellerEmail": "seller@holycare.com",
-            "createdAt": "2025-07-08"
-        }
-    ]
 
     return (
         <section className="relative overflow-hidden bg-[#F2F6F7]">
             <Swiper
                 modules={[Autoplay, Pagination, EffectFade]}
-                autoplay={{ delay: 500000 }}
+                autoplay={{ delay: 5000 }}
                 effect="fade"
                 loop={true}
                 pagination={{ clickable: true }}
