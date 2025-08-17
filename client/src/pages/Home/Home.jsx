@@ -17,12 +17,12 @@ export default function Home() {
       <BannerSlider></BannerSlider>
       <CategorySection></CategorySection>
       <DiscountProducts></DiscountProducts>
-      <FeaturedProduct></FeaturedProduct>
-      <FeatureSection></FeatureSection>
-      <HealthTips></HealthTips>
-      <Offer></Offer>
       <ProductSec></ProductSec>
+      <FeatureSection></FeatureSection>
+      <Offer></Offer>
+      {/* <FeaturedProduct></FeaturedProduct> */}
       <TopRatedMedicines></TopRatedMedicines>
+      <HealthTips></HealthTips>
     </>
   )
 }

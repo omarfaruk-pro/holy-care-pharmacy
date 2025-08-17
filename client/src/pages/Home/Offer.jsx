@@ -3,6 +3,7 @@ import Button from '../../component/buttons/Button';
 import offerImg from "../../assets/images/offer-img.jpg";
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { HiArrowRight } from 'react-icons/hi';
 
 export default function Offer() {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -54,27 +55,25 @@ export default function Offer() {
             <div className="container">
                 <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
 
-                    {/* Left Image */}
                     <div className="w-full md:w-1/2 flex justify-center md:justify-start">
                         <img src={offerImg} alt="Promo" className="w-full rounded-xl" />
                     </div>
 
-                    {/* Right Content */}
                     <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
-                        <p className="text-green-600 text-base font-semibold">Todays Hot Offer</p>
+                        <p className="text-primary inline-block font-black text-xl rounded capitalize">Todays Hot Offer</p>
                         <h2 className="text-2xl md:text-4xl font-bold">
                             Buy all your medicines at {offerInfo?.percentage || 0}% off
                         </h2>
-                        <p className="text-gray-600 text-base">Get extra cashback with great deals and discounts</p>
+                        <p className="text-[#777] text-base">Get extra cashback with great deals and discounts</p>
 
-                        {/* Countdown */}
-                        <div className="flex justify-center md:justify-start space-x-2 text-green-700 font-bold">
+                       
+                        <div className="flex justify-center md:justify-start gap-6 font-bold mt-10">
                             {['days', 'hours', 'minutes', 'seconds'].map((unit, idx) => (
                                 <div key={idx} className="text-center">
-                                    <div className="bg-white p-2 rounded shadow w-12">
-                                        {String(timeLeft[unit]).padStart(2, '0')}
+                                    <div className="bg-white pt-3 pb-2 px-4 rounded shadow flex items-center max-w-18 w-full">
+                                        <p className='text-2xl font-bold text-primary'>{String(timeLeft[unit]).padStart(2, '0')}</p>
                                     </div>
-                                    <span className="text-xs">
+                                    <span className="text-base text-[#333] font-light mt-2 inline-block">
                                         {unit.charAt(0).toUpperCase() + unit.slice(1)}
                                     </span>
                                 </div>
@@ -82,8 +81,8 @@ export default function Offer() {
                         </div>
 
                         {/* CTA */}
-                        <div className="flex justify-center md:justify-start space-x-4 mt-4">
-                            <Button>Shop Now</Button>
+                        <div className="flex justify-center md:justify-start space-x-4 mt-10">
+                            <Button className="flex items-center gap-3">Shop Now <HiArrowRight /></Button>
                         </div>
                     </div>
                 </div>

@@ -24,15 +24,15 @@ const CategorySection = () => {
     }
 
     return (
-        <section className="my-10 px-4 md:px-10">
+        <section className="py-20">
             <div className="container">
-                <h2 className="text-2xl font-bold mb-6 text-center">Browse Categories</h2>
+                <h2 className="text-4xl font-bold mb-10 text-center">Browse Categories</h2>
                 <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
                     {categories.slice(0, 6).map((category) => (
                         <Link
                             to={`/category/${category.name}`}
                             key={category._id}
-                            className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden"
+                            className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden"
                         >
                             <div className="overflow-hidden">
                                 <img
@@ -42,7 +42,7 @@ const CategorySection = () => {
                                 />
                             </div>
                             <div className="px-4 py-2">
-                                <h3 className="text-lg font-semibold mb-1">{category.name}</h3>
+                                <h3 className="text-lg font-bold mb-1">{category.name}</h3>
                                 <p className="text-sm text-gray-600 flex items-center gap-2">
                                     <FaCapsules className="text-orange-500" />
                                     {category.medicineCount || 0} medicines

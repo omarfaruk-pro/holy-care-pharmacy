@@ -2,7 +2,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCards } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
-import { FaShoppingCart, FaTags } from 'react-icons/fa';
+import { FaCheckCircle, FaShoppingCart, FaTags } from 'react-icons/fa';
+import { HiArrowRight } from 'react-icons/hi';
+import Button from '../../component/buttons/Button';
 
 const discountProducts = [
     {
@@ -37,15 +39,15 @@ const discountProducts = [
 
 export default function DiscountProducts() {
     return (
-        <section className="bg-gray-100 py-20 px-4">
+        <section className="bg-gray-50 py-20">
             <div className="container">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 flex justify-center items-center gap-3">
-                    <FaTags className="text-blue-600 hidden md:block" />
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 flex justify-center items-center gap-3">
+                    <FaTags className="text-primary hidden md:block" />
                     Discounted Medicines
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                    <div className="max-w-sm w-full mx-auto px-5 md:px-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div className="max-w-md w-full mx-auto px-5 md:px-0">
                         <Swiper
                             effect={'cards'}
                             grabCursor={true}
@@ -82,23 +84,22 @@ export default function DiscountProducts() {
                         </Swiper>
                     </div>
 
-                    {/* Right: Text Content */}
                     <div className="text-center md:text-left space-y-6">
                         <h3 className="text-3xl font-bold text-gray-800">
                             Save Big on Trusted Health Products
                         </h3>
-                        <p className="text-gray-600 text-lg leading-relaxed">
+                        <p className="text-[#777] text-lg leading-relaxed">
                             Enjoy exclusive discounts on essential medicines and health supplements carefully curated for your well-being.
                             From vitamins to herbal tonics, our limited-time offers help you stay healthy without stretching your budget.
                         </p>
-                        <ul className="text-gray-700 list-disc pl-5 text-left">
-                            <li>Up to 40% off on immunity boosters</li>
-                            <li>Clinically tested and safe products</li>
-                            <li>Handpicked by certified sellers</li>
+                        <ul className="text-gray-700  text-left space-y-3.5">
+                            <li className='flex font-semibold items-center'><FaCheckCircle className="text-primary mr-2" /> Up to 40% off on immunity boosters</li>
+                            <li className='flex font-semibold items-center'><FaCheckCircle className="text-primary mr-2" /> Clinically tested and safe products</li>
+                            <li className='flex font-semibold items-center'><FaCheckCircle className="text-primary mr-2" /> Handpicked by certified sellers</li>
                         </ul>
-                        <button className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
-                            Browse All Deals
-                        </button>
+                        <Button className="mt-4 flex gap-3 items-center">
+                            Browse All Deals <HiArrowRight />
+                        </Button>
                     </div>
                 </div>
             </div>

@@ -5,22 +5,22 @@ import { FaSackDollar } from "react-icons/fa6";
 export default function FeatureSection() {
     const features = [
         {
-            icon: <FaShippingFast className="text-4xl text-black" />,
+            icon: <FaShippingFast className="text-4xl text-primary" />,
             title: "Free shipping",
             description: "On all orders over $49.00"
         },
         {
-            icon: <FaSackDollar className="text-4xl text-black" />,
+            icon: <FaSackDollar className="text-4xl text-primary" />,
             title: "15 days returns",
             description: "Moneyback guarantee"
         },
         {
-            icon: <FaCreditCard className="text-4xl text-black" />,
+            icon: <FaCreditCard className="text-4xl text-primary" />,
             title: "Secure checkout",
             description: "Protected by Paypal"
         },
         {
-            icon: <FaGift className="text-4xl text-black" />,
+            icon: <FaGift className="text-4xl text-primary" />,
             title: "Offer & gift here",
             description: "On all orders over"
         }
@@ -28,15 +28,15 @@ export default function FeatureSection() {
 
     return (
         <>
-            <section className="bg-gray-100 py-8">
+            <section className="bg-gray-50 py-15">
                 <div className="container ">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="flex justify-between gap-8">
                         {features.map((feature, index) => (
                             <div key={index} className="flex items-center gap-4">
                                 <div>{feature.icon}</div>
                                 <div>
-                                    <h3 className="font-bold text-lg">{feature.title}</h3>
-                                    <p className="text-gray-500 text-sm">{feature.description}</p>
+                                    <h3 className="font-bold text-xl">{feature.title}</h3>
+                                    <p className="text-[#777] text-sm">{feature.description}</p>
                                 </div>
                             </div>
                         ))}

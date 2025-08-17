@@ -8,6 +8,7 @@ import useUserRole from '../hooks/useUserRole';
 import { useState } from 'react';
 import { MdMenuOpen } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
+import Button from '../component/buttons/Button';
 
 
 
@@ -20,7 +21,7 @@ const Header = () => {
 
     return (
         <>
-            <header className="navbar bg-base-100 shadow-md sticky top-0 z-50">
+            <header className=" bg-base-100 shadow-xs sticky top-0 z-50">
                 <div className="navbar container">
                     <div className="navbar-start">
                         <Link to="/" className="text-2xl font-bold text-primary">
@@ -29,18 +30,18 @@ const Header = () => {
                     </div>
 
                     <div className={`lg:navbar-center flex flex-col p-10 lg:p-0 lg:flex-row fixed lg:static w-80 lg:w-auto h-screen lg:h-auto z-30 top-20 lg:top-0 -left-full lg:left-0 bg-base-100 duration-300 ease-in-out ${showMenu && "left-0 shadow-md"}`}>
-                        <ul className="menu lg:menu-horizontal px-1 font-medium">
-                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none" : ""} to="/">Home</NavLink></li>
-                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none" : ""} to="/shop">Shop</NavLink></li>
-                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none" : ""} to="/about-us">About Us</NavLink></li>
-                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none" : ""} to="/contact-us">Contact Us</NavLink></li>
+                        <ul className="menu gap-4 lg:menu-horizontal px-1 font-medium text-base">
+                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none text-primary bg-transparent" : "hover:bg-transparent hover:text-primary"} to="/">Home</NavLink></li>
+                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none text-primary bg-transparent" : "hover:bg-transparent hover:text-primary"} to="/shop">Shop</NavLink></li>
+                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none text-primary bg-transparent" : "hover:bg-transparent hover:text-primary"} to="/about-us">About Us</NavLink></li>
+                            <li><NavLink className={({isActive}) => isActive ? "border-b rounded-none text-primary bg-transparent" : "hover:bg-transparent hover:text-primary"} to="/contact-us">Contact Us</NavLink></li>
                         </ul>
                         <div className='lg:hidden'>
                             <LanguageDropdown />
                         </div>
                     </div>
 
-                    <div className="navbar-end flex items-center gap-5 lg:gap-3">
+                    <div className="navbar-end flex items-center gap-5 lg:gap-4">
                         <Link to="/cart" className="btn btn-ghost relative">
                             <FaShoppingCart className="text-xl" />
                             <span className="badge badge-sm badge-primary absolute -top-1 -right-1">{cartCount}</span>
@@ -60,8 +61,8 @@ const Header = () => {
                         </button>
 
                         {!user ? (
-                            <Link to="/login" className="btn btn-primary btn-sm ml-2">
-                                Join Us
+                            <Link to="/login" className=" ml-2">
+                                <Button className="!py-1">Join Us</Button>
                             </Link>
                         ) : (
                             <div className="dropdown dropdown-end">

@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { MdCalendarMonth } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import Button from "../../component/buttons/Button";
+import { HiArrowRight } from "react-icons/hi";
 
 export default function HealthTips() {
     const tips = [
@@ -23,12 +24,12 @@ export default function HealthTips() {
     ];
 
     return (
-        <section className="bg-gray-100 py-16">
+        <section className="py-20">
             <div className="container ">
                 <div className="flex justify-between mb-10">
                     <h2 className="text-3xl md:text-4xl font-bold ">Health Tips & Articles</h2>
                     <Link to={"/health-tips"}>
-                        <Button className={`px-10`}>View All</Button>
+                        <Button className="flex gap-3 items-center px-10">View All <HiArrowRight /></Button>
                     </Link>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
@@ -42,11 +43,17 @@ export default function HealthTips() {
                             </div>
                             <div className="p-7 text-left">
                                 <div className="flex gap-2 items-center  justify-between">
-                                    <p className="flex gap-2 items-center "><MdCalendarMonth className="-mt-0.5" /> <span className="font-semibold">May 1, 2023</span></p>
-                                    <p className="flex gap-2"><FaUser /> <span className="font-semibold">Dr. John Doe</span></p>
+                                    <p className="flex gap-2 items-center ">
+                                        <MdCalendarMonth className="-mt-0.5 text-primary" />
+                                        <span className="font-normal text-[#777]">May 1, 2023</span>
+                                    </p>
+                                    <p className="flex gap-2">
+                                        <FaUser className="text-primary" />
+                                        <span className="font-normal text-[#777]">Dr. John Doe</span>
+                                    </p>
                                 </div>
-                                <h3 className="text-xl font-semibold mt-3 mb-1 hover:text-primary duration-300 ease-linear"><Link>{tip.title}</Link></h3>
-                                <p className="text-sm text-gray-600">{tip.desc}</p>
+                                <h3 className="text-xl font-semibold mt-5 mb-3 hover:text-primary duration-300 ease-linear"><Link>{tip.title}</Link></h3>
+                                <p className="text-sm text-[#777]">{tip.desc}</p>
                             </div>
                         </div>
                     ))}

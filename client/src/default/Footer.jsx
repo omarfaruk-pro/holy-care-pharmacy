@@ -3,7 +3,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/f
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-900 text-gray-200 px-6 py-10">
+        <footer className="bg-gray-900 text-gray-200 py-10">
             <div className="container">
                 <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-sm">
 
@@ -15,8 +15,7 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    {/* Quick Links */}
-                    <div>
+                    <div className="md:px-10 ">
                         <h2 className="text-lg font-semibold text-white mb-2">Quick Links</h2>
                         <ul className="space-y-2">
                             <li><Link to="/" className="hover:underline">Home</Link></li>

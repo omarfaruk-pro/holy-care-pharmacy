@@ -16,6 +16,11 @@ export default function TopRatedMedicines() {
       name: "Cough Syrup 100ml",
       rating: 4.7,
       img: "https://i.chaldn.com/_mpimage/miraten-syrup-100ml-1-pc?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D102151&q=low&v=1"
+    },
+    {
+      name: "Cough Syrup 100ml",
+      rating: 4.7,
+      img: "https://i.chaldn.com/_mpimage/miraten-syrup-100ml-1-pc?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D102151&q=low&v=1"
     }
   ];
 
@@ -54,29 +59,29 @@ export default function TopRatedMedicines() {
     }
 
     return (
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-0">
         {stars}
-        <span className="text-gray-700 text-sm ml-2">({rating})</span>
+        <span className="text-gray-700 text-sm ml-2 mt-0.75">({rating})</span>
       </div>
     );
   };
 
   return (
-    <section className="bg-white py-16 px-4">
+    <section className="bg-gray-50 py-20">
       <div className="container text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-10">Top Rated Medicines</h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-4 gap-5">
           {medicines.map((item, index) => (
             <div
               key={index}
-              className="rounded-lg shadow-md overflow-hidden bg-gray-50"
+              className="rounded-lg shadow-md overflow-hidden h-full bg-white"
             >
               <img
                 src={item.img}
                 alt={item.name}
                 className="w-full h-52 object-cover"
               />
-              <div className="p-4 text-left">
+              <div className="p-4 pb-6 text-left">
                 <h3 className="text-lg font-semibold mb-2">{item.name}</h3>
                 {renderStars(item.rating)}
               </div>

@@ -3,31 +3,66 @@ import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
-import { FaCheckCircle } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import BannerLoader from './BannerLoader';
+import Button from '../../component/buttons/Button';
+import shape1 from '../../assets/images/shape-1.png';
+import {HiArrowRight} from "react-icons/hi"
 
 
 export default function BannerSlider() {
     const axiosSecure = useAxiosSecure();
-    const {data:banners = [], isLoading, isError} = useQuery({
+    const { data: banner = [], isLoading, isError } = useQuery({
         queryKey: ['banners'],
-        queryFn: async() => {
+        queryFn: async () => {
             const res = await axiosSecure(`/banners?active=${true}`);
             return res.data;
         }
     });
-
+    console.log(banner);
 
     if (isLoading) return <BannerLoader></BannerLoader>;
     if (isError) return <div>Error</div>;
 
+    const banners = [
+        {
+            "_id": "686eb370507f6d0c53f5111f",
+            "productImage": "https://i.ibb.co.com/Gf8gnsCJ/ucrfate.png",
+            "name": "Ucrafate syrup",
+            "uses": "Intestinal ulcers",
+            "subtitle": "Ucrafate is a prescription medicine used in the treatment of ulcers in the stomach and intestine. It forms a coating over ulcers and creates a physical barrier thereby promotes healing of ulcer.",
+            "status": "active",
+            "sellerEmail": "aadmin@gmail.com",
+            "date": "2025-07-09T18:22:40.820Z"
+        },
+        {
+            "_id": "686d61220e197804f2224d4d",
+            "productImage": "https://cdn2.arogga.com/eyJidWNrZXQiOiJhcm9nZ2EiLCJrZXkiOiJQcm9kdWN0LXBfaW1hZ2VzXC8xMTMyXC8xMTMyLUFuZWZlci1JVi1jb3B5LXMyZmFvYy5qcGVnIiwiZWRpdHMiOltdfQ==",
+            "name": "Anefer IV Injection",
+            "uses": "Iron deficiency anemia",
+            "subtitle": "Anefer is an iron replacement product. It is used to treat a type of anemia where you have too few red blood cells because you have too little iron in your body (iron-deficiency anaemia).",
+            "status": "active",
+            "sellerEmail": "seller@holycare.com",
+            "createdAt": "2025-07-08"
+        },
+        {
+            "_id": "686d61220e197804f2224d4c",
+            "productImage": "https://cdn2.arogga.com/eyJidWNrZXQiOiJhcm9nZ2EiLCJrZXkiOiJQcm9kdWN0LXBfaW1hZ2VzXC8yNzIwNFwvMjcyMDQtc21jLW9yc2FsaW5lLTBvZHExOS5qcGVnIiwiZWRpdHMiOltdfQ==",
+            "name": "Orsaline (SMC)",
+            "uses": "Diarrhea, Dehydration, Electrolytes imbalance",
+            "subtitle": "Depressed renal function, severe continuing diarrhoea or other critical fluid losses may need supplementation with parenteral fluids along with oral saline. Reconstitue saline should be used within 6 hours",
+            "status": "inactive",
+            "sellerEmail": "seller@holycare.com",
+            "createdAt": "2025-07-08"
+        }
+    ]
+
     return (
-        <section>
+        <section className="relative overflow-hidden bg-[#F2F6F7]">
             <Swiper
                 modules={[Autoplay, Pagination, EffectFade]}
-                autoplay={{ delay: 5000 }}
+                autoplay={{ delay: 500000 }}
                 effect="fade"
                 loop={true}
                 pagination={{ clickable: true }}
@@ -36,43 +71,39 @@ export default function BannerSlider() {
                 {banners.map(slide => (
                     <SwiperSlide key={slide.id}>
                         <div
-                            className="w-full h-full bg-cover bg-center relative"
-                            style={{ backgroundImage: `url(${slide.bgImage})` }}
+                            className="w-full h-full relative bg-[#F2F6F7]"
+
                         >
-                            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(0,0,0,.85)_0%,_rgba(0,0,0,0.9)_100%)] flex items-center">
+                            <div className="absolute inset-0 flex items-center">
                                 <div className="container px-4 md:px-8 grid md:grid-cols-2 gap-10 items-center">
 
-                                    {/* Product Image */}
-                                    <div className="flex justify-center">
+                                    <div className=" space-y-4">
+                                        <p className='text-primary inline-block font-black text-xl rounded capitalize mb-5'>{slide.uses}</p>
+                                        <h2 className="text-3xl md:text-6xl font-bold capitalize">{slide.name}</h2>
+                                        <p className='text-lg font-normal leading-tight text-[#777] max-w-130 mb-8'>{slide.subtitle.slice(0, 100)}...</p>
+
+                                        <Button className="mt-4 flex items-center gap-3">
+                                            View Details <HiArrowRight />
+                                        </Button>
+                                    </div>
+
+                                    <div className="flex justify-center relative z-5 text-right">
                                         <img
                                             src={slide.productImage}
                                             alt={slide.name}
-                                            className="h-100 w-full object-contain rounded-xl shadow-2xl bg-white p-4"
+                                            className="max-h-140 h-full w-full object-contain rounded-xl object-right"
                                         />
-                                    </div>
-
-                                    {/* Description */}
-                                    <div className="text-white space-y-4">
-                                        <h2 className="text-3xl md:text-4xl font-bold">{slide.name}</h2>
-                                        <ul className="space-y-1 pl-5 list-disc text-lg text-gray-200">
-                                            {slide.features.map((feature, index) => (
-                                                <li key={index} className="flex items-start gap-2">
-                                                    <FaCheckCircle className="text-white mt-1" />
-                                                    <span>{feature}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <button className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white font-semibold transition">
-                                            View Details
-                                        </button>
                                     </div>
 
                                 </div>
                             </div>
+                             <img className='absolute top-1/2 -translate-y-1/2 right-0 z-1 w-full max-w-160' src={shape1} alt="Shape" />
                         </div>
                     </SwiperSlide>
                 ))}
             </Swiper>
+
+           
         </section>
     );
 }

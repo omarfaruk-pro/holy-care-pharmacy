@@ -27,11 +27,11 @@ export default function ProductSec() {
         }
     });
     return (
-        <section className="py-12 md:px-12 bg-white">
+        <section className="py-20">
             <div className="container">
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-gray-800">Our Products</h2>
-                    <p className="text-gray-500 mt-2">
+                    <h2 className="text-4xl font-bold">Our Products</h2>
+                    <p className=" mt-2 text-[#777]">
                         A highly efficient slip-ring scanner for today's diagnostic
                         requirements.
                     </p>
